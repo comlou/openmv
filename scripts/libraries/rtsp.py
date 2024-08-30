@@ -349,7 +349,10 @@ class rtsp_server:
             except OSError:
                 self.__close_socket()
 
-    def stream(self, image_callback, quality=90):  # public
+    def __process_not_playing(not_playing_process_callback): # private
+        not_playing_process_callback()
+
+    def stream(self, image_callback, not_playing_process_callback, quality=90):  # public
         while True:
             if self.__valid_tcp_socket():
                 try:
@@ -365,6 +368,9 @@ class rtsp_server:
                             raise e
                     if self.__playing:
                         self.__send_rtp(image_callback, quality)
+                    else:
+                        # called when not playing and allow the calling process to process 
+                        self.__process_not_playing(not_playing_process_callback)
                 except OSError:
                     self.__close_tcp_socket()
                     self.__close_udp_socket()
