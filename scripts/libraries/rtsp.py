@@ -349,6 +349,7 @@ class rtsp_server:
             except OSError:
                 self.__close_socket()
 
+    # used to call the callers callback when the rtsp is not playing
     def __process_not_playing(not_playing_process_callback):  # private
         not_playing_process_callback()
 
