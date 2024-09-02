@@ -350,7 +350,7 @@ class rtsp_server:
                 self.__close_socket()
 
     # used to call the callers callback when the rtsp is not playing
-    def __process_not_playing(not_playing_process_callback):  # private
+    def __process_not_playing(self, not_playing_process_callback):  # private
         not_playing_process_callback()
 
     def stream(self, image_callback, not_playing_process_callback, quality=90):  # public
